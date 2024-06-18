@@ -1,7 +1,15 @@
-import {ADD_TASK, TOGGLE_TASK, DELETE_TASK, EDIT_TASK} from '../actionType';
+import {
+  ADD_TASK,
+  TOGGLE_TASK,
+  DELETE_TASK,
+  EDIT_TASK,
+  FETCH_TASKS,
+} from '../actionType';
 
 const tasksReducer = (state = [], action) => {
   switch (action.type) {
+    case FETCH_TASKS:
+      return action.payload;
     case ADD_TASK:
       return [...state, action.payload];
     case TOGGLE_TASK:

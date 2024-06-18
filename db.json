@@ -1,0 +1,6 @@
+{
+  "tasks": [
+    {"id": 1, "text": "Sample Task 1", "completed": false, "priority": "nomal"},
+    {"id": 2, "text": "Sample Task 2", "completed": true, "priority": "quick"}
+  ]
+}

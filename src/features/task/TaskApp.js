@@ -7,7 +7,7 @@ import {
   Button,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   addTask,
@@ -15,6 +15,7 @@ import {
   editTask,
   toggleTask,
   setPriority,
+  fetchTasks,
 } from '../../app/redux/actions/taskAction';
 import {Picker} from '@react-native-picker/picker';
 
@@ -29,6 +30,10 @@ const TaskApp = () => {
   const tasks = useSelector(state => state.tasks);
 
   const priorities = useSelector(state => state.priorities);
+
+  useEffect(() => {
+    dispatch(fetchTasks()); // get data from api
+  }, [dispatch]);
 
   const handleAddTask = () => {
     if (taskText.trim()) {

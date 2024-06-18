@@ -1,18 +1,32 @@
-import {ADD_TASK, TOGGLE_TASK, DELETE_TASK, EDIT_TASK} from '../actionType';
+import {
+  ADD_TASK,
+  TOGGLE_TASK,
+  DELETE_TASK,
+  EDIT_TASK,
+  SET_PRIORITY,
+} from '../actionType';
 
-export const addTask = task => ({
+export const addTask = (text, id) => ({
   type: ADD_TASK,
-  payload: task,
+  payload: {id, text, completed: false},
 });
-export const toggleTask = taskId => ({
+
+export const toggleTask = id => ({
   type: TOGGLE_TASK,
-  payload: taskId,
+  payload: id,
 });
-export const deleteTask = taskId => ({
+
+export const deleteTask = id => ({
   type: DELETE_TASK,
-  payload: taskId,
+  payload: id,
 });
-export const editTask = (taskId, newText) => ({
+
+export const editTask = (id, text) => ({
   type: EDIT_TASK,
-  payload: {id: taskId, newText},
+  payload: {id, text},
+});
+
+export const setPriority = (taskId, priority) => ({
+  type: SET_PRIORITY,
+  payload: {taskId, priority},
 });

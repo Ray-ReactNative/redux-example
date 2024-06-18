@@ -1,14 +1,9 @@
 import {ADD_TASK, TOGGLE_TASK, DELETE_TASK, EDIT_TASK} from '../actionType';
 
-const initialState = [];
-
-const tasksReducer = (state = initialState, action) => {
+const tasksReducer = (state = [], action) => {
   switch (action.type) {
     case ADD_TASK:
-      return [
-        ...state,
-        {id: Date.now(), text: action.payload, completed: false},
-      ];
+      return [...state, action.payload];
     case TOGGLE_TASK:
       return state.map(task =>
         task.id === action.payload
@@ -20,7 +15,7 @@ const tasksReducer = (state = initialState, action) => {
     case EDIT_TASK:
       return state.map(task =>
         task.id === action.payload.id
-          ? {...task, text: action.payload.newText}
+          ? {...task, text: action.payload.text}
           : task,
       );
     default:

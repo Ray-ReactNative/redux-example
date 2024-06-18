@@ -12,11 +12,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   addTask,
   deleteTask,
+  editTask,
   toggleTask,
 } from '../../app/redux/actions/taskAction';
 
 const TaskApp = () => {
   const [taskText, setTaskText] = useState('');
+  const [editingTaskId, setEditingTaskId] = useState(null);
+  const [editedTaskText, setEditedTaskText] = useState('');
+
   const dispatch = useDispatch();
   const tasks = useSelector(state => state.tasks);
 
@@ -25,6 +29,18 @@ const TaskApp = () => {
       dispatch(addTask(taskText));
       setTaskText('');
     }
+  };
+  const handleEditTask = () => {
+    if (editedTaskText.trim()) {
+      dispatch(editTask(editingTaskId, editedTaskText));
+      setEditingTaskId(null);
+      setEditedTaskText('');
+    }
+  };
+
+  const startEditingTask = (taskId, taskNewText) => {
+    setEditingTaskId(taskId);
+    setEditedTaskText(taskNewText);
   };
 
   return (
@@ -41,16 +57,35 @@ const TaskApp = () => {
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
           <View style={styles.task}>
-            <TouchableOpacity onPress={() => dispatch(toggleTask(item.id))}>
-              <Text
-                style={item.completed ? styles.completed : styles.notCompleted}>
-                {item.text}
-              </Text>
-            </TouchableOpacity>
-            <Button
-              title="Delete"
-              onPress={() => dispatch(deleteTask(item.id))}
-            />
+            {editingTaskId === item.id ? (
+              <>
+                <TextInput
+                  style={styles.editInput}
+                  value={editedTaskText}
+                  onChangeText={setEditedTaskText}
+                />
+                <Button title="Save" onPress={handleEditTask} />
+              </>
+            ) : (
+              <>
+                <TouchableOpacity onPress={() => dispatch(toggleTask(item.id))}>
+                  <Text
+                    style={
+                      item.completed ? styles.completed : styles.notCompleted
+                    }>
+                    {item.text}
+                  </Text>
+                </TouchableOpacity>
+                <Button
+                  title="Edit"
+                  onPress={() => startEditingTask(item.id, item.text)}
+                />
+                <Button
+                  title="Delete"
+                  onPress={() => dispatch(deleteTask(item.id))}
+                />
+              </>
+            )}
           </View>
         )}
       />
@@ -84,5 +119,13 @@ const styles = StyleSheet.create({
   },
   notCompleted: {
     textDecorationLine: 'none',
+  },
+  editInput: {
+    flex: 1,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginRight: 10,
+    paddingHorizontal: 10,
   },
 });

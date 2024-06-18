@@ -48,7 +48,7 @@ This is one way to run your app — you can also run it directly from within And
 
 ### About Redux 
 
-** Redux **
+**Redux**
 
 - Action Creator：當某個事件發生時，會建立一個 JS 物件，該物件即為 action。
 - Action：一個物件，裡面有 type 和 payload 屬性，一定要有 type 屬性，payload 則非必要，分別描述了行為的類型和要傳遞的 state。

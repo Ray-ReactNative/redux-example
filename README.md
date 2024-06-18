@@ -46,34 +46,18 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Step 3: Modifying your App
+### About Redux 
 
-Now that you have successfully run the app, let's modify it.
+** Redux **
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+- Action Creator：當某個事件發生時，會建立一個 JS 物件，該物件即為 action。
+- Action：一個物件，裡面有 type 和 payload 屬性，一定要有 type 屬性，payload 則非必要，分別描述了行為的類型和要傳遞的 state。
+- Dispatch **:** 將 action 傳遞到 reducer 函式。
+- Store：負責所有數據的儲存，每個專案只會有一個Stroe
+- Reducer：處理邏輯，接收先前的 state 和一個 action，並根據傳入的 action 的 type 去將 state 值做改變，最後回傳的是一個經過計算後新的 state 物件。在一個專案中可以有多個 reducer，每一個都管理它所擁有的全域 state 一部分。
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+**Redux三大原則**
 
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- Store是唯一的：整個專案只會有一個
+- Store是唯讀的：唯一改state的方法就是觸發action
+- Reducer必須是pure function，對應得到的actions，回傳不可變的新state 。

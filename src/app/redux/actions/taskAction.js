@@ -35,9 +35,12 @@ export const setPriority = (taskId, priority) => ({
 export const fetchTasks = () => {
   return async dispatch => {
     try {
-      const response = await fetch('http://localhost:3000/tasks');
-      const tasks = await response.json();
-      dispatch({type: FETCH_TASKS, payload: tasks});
+      const response = await fetch('http://192.168.96.42:3001/tasks');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      dispatch({type: FETCH_TASKS, payload: data.tasks});
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +50,8 @@ export const fetchTasks = () => {
 export const addTaskToApi = task => {
   return async dispatch => {
     try {
-      const response = await fetch('http://localhost:3000/tasks', {
+      //mock api from mockoon
+      const response = await fetch('http://192.168.96.42:3001/tasks', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

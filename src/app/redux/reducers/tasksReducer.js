@@ -4,6 +4,8 @@ import {
   DELETE_TASK,
   EDIT_TASK,
   FETCH_TASKS,
+  ASSIGN_TASKS,
+  // SET_PRIORITY,
 } from '../actionType';
 
 const tasksReducer = (state = [], action) => {
@@ -23,7 +25,23 @@ const tasksReducer = (state = [], action) => {
     case EDIT_TASK:
       return state.map(task =>
         task.id === action.payload.id
-          ? {...task, text: action.payload.text}
+          ? {
+              ...task,
+              text: action.payload.text,
+              priority: action.payload.priority,
+            }
+          : task,
+      );
+    // case SET_PRIORITY:
+    //   // console.log('action.payload.priority+++', action.payload);
+    //   return {
+    //     ...state,
+    //     [action.payload.id]: action.payload.priority,
+    //   };
+    case ASSIGN_TASKS:
+      return state.map(task =>
+        task.id === action.payload.taskId
+          ? {...task, userId: action.payload.userId}
           : task,
       );
     default:

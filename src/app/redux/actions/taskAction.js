@@ -5,11 +5,12 @@ import {
   EDIT_TASK,
   SET_PRIORITY,
   FETCH_TASKS,
+  ASSIGN_TASKS,
 } from '../actionType';
 
-export const addTask = (text, id) => ({
+export const addTask = (text, id, priority) => ({
   type: ADD_TASK,
-  payload: {id, text, completed: false},
+  payload: {id, text, completed: false, priority},
 });
 
 export const toggleTask = id => ({
@@ -22,9 +23,9 @@ export const deleteTask = id => ({
   payload: id,
 });
 
-export const editTask = (id, text) => ({
+export const editTask = (id, text, priority) => ({
   type: EDIT_TASK,
-  payload: {id, text},
+  payload: {id, text, priority},
 });
 
 export const setPriority = (taskId, priority) => ({
@@ -65,3 +66,8 @@ export const addTaskToApi = task => {
     }
   };
 };
+
+export const assignTask = (taskId, userId) => ({
+  type: ASSIGN_TASKS,
+  payload: {taskId, userId},
+});
